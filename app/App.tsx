@@ -10,10 +10,17 @@
 
 import React from 'react';
 
-import {AppNavigator} from './navigators/app-navigator';
+import {AppNavigator} from './navigators';
+import {ThemeProvider, useTheme} from './styles';
 
 const App = () => {
-  return <AppNavigator />;
+  const theme = useTheme();
+
+  return (
+    <ThemeProvider theme={theme}>
+      <AppNavigator />
+    </ThemeProvider>
+  );
 };
 
 export default App;

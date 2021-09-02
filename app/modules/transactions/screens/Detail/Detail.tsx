@@ -19,7 +19,7 @@ import {
 
 import {NavigationContainer} from '@react-navigation/native';
 
-import styles from './detail.style';
+import styles from './Detail.style';
 
 const Section: React.FC<{
   title: string;
