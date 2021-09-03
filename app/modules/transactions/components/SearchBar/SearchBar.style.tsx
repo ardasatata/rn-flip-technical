@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Roundness, Spacing} from '../../../../styles';
+import {Colors, Roundness, Spacing} from '@styles';
 
 const styles = StyleSheet.create({
   input: {

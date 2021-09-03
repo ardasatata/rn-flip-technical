@@ -19,15 +19,15 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import styles from './SearchBar.style';
-import {HStack, VStack} from '../../../../components';
-import {Spacing, useTheme} from '../../../../styles';
+import {HStack, VStack} from '@components';
+import {Spacing, useTheme} from '@styles';
 
 // @ts-ignore
-import SearchIcon from '../../../../../assets/icons/search.svg';
+import SearchIcon from '@assets/icons/search.svg';
 // @ts-ignore
-import ChevronDown from '../../../../../assets/icons/chevron-down.svg';
+import ChevronDown from '@assets/icons/chevron-down.svg';
 
-import Spacer from '../../../../components/Spacer';
+import Spacer from '@components/Spacer';
 
 export interface SearchBarProps {
   filterValue: string;

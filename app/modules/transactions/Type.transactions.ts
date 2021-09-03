@@ -1,3 +1,7 @@
+export type TransactionItemProps = {
+  transaction: TransactionItemType;
+};
+
 export type TransactionStatusType = 'SUCCESS' | 'PENDING';
 
 export type TransactionItemType = {

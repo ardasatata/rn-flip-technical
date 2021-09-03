@@ -11,7 +11,7 @@
 import React from 'react';
 
 import {AppNavigator} from './navigators';
-import {ThemeProvider, useTheme} from './styles';
+import {ThemeProvider, useTheme} from '@styles';
 
 const App = () => {
   const theme = useTheme();

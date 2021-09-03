@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Layout} from '../../styles';
+import {Layout} from '@styles';
 
 interface Props {
   width?: number;

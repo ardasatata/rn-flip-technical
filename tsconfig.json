@@ -57,6 +57,20 @@
     /* Experimental Options */
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
+
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./app/components/*"],
+      "@components": ["./app/components"],
+      "@modules/*": ["./app/modules/*"],
+      "@styles/*": ["./app/styles/*"],
+      "@styles": ["./app/styles"],
+      "@utils/*": ["./app/utils/*"],
+      "@utils": ["./app/utils"],
+      "@assets/*": ["./assets/*"],
+      "@services/*": ["./app/services/*"],
+      "@services": ["./app/services"],
+    }
   },
   "exclude": [
     "node_modules", "babel.config.js", "metro.config.js", "jest.config.js"

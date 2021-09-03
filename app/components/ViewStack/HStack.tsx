@@ -3,7 +3,7 @@
 
 import React from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {Layout} from '../../styles';
+import {Layout} from '@styles';
 import {
   VerticalAlignment,
   VerticalAlignmentStrings,
