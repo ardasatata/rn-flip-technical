@@ -15,6 +15,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {navigationRef} from './navigation-utilities';
 
 import {List, Detail} from '../modules/transactions/screens';
+import {TransactionItemType} from '@modules/transactions/Type.transactions';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -30,7 +31,9 @@ import {List, Detail} from '../modules/transactions/screens';
  */
 export type NavigatorParamList = {
   list: undefined;
-  detail: undefined;
+  detail: {
+    transaction: TransactionItemType;
+  };
 };
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/

@@ -1,5 +1,6 @@
 export type TransactionItemProps = {
   transaction: TransactionItemType;
+  onPressItem(transaction: TransactionItemType): void;
 };
 
 export type TransactionStatusType = 'SUCCESS' | 'PENDING';

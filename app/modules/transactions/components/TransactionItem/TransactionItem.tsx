@@ -10,7 +10,7 @@ import React from 'react';
 import styles from '@modules/transactions/components/TransactionItem/TransactionItem.style';
 import Spacer from '@components/Spacer';
 
-const TransactionItem = ({transaction}: TransactionItemProps) => {
+const TransactionItem = ({transaction, onPressItem}: TransactionItemProps) => {
   const LeftAccent = ({status}: {status: TransactionStatusType}) => {
     const color = status === 'SUCCESS' ? 'green' : 'orange';
     return (
@@ -29,6 +29,8 @@ const TransactionItem = ({transaction}: TransactionItemProps) => {
   };
 
   const StatusTag = ({label}: {label: TransactionStatusType}) => {
+    const tagLabel = label === 'SUCCESS' ? 'Berhasil' : 'Pengecekan';
+
     return (
       <VStack
         horizontal={Spacing[8]}
@@ -42,14 +44,14 @@ const TransactionItem = ({transaction}: TransactionItemProps) => {
             styles.tagText,
             label === 'SUCCESS' ? styles.tagTextSuccess : {},
           ]}>
-          {`${toTitleCase(label)}`}
+          {`${toTitleCase(tagLabel)}`}
         </Text>
       </VStack>
     );
   };
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => onPressItem(transaction)}>
       <HStack
         style={{
           backgroundColor: 'white',

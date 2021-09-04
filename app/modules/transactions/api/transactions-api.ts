@@ -1,7 +1,11 @@
 import {ApisauceInstance, create, ApiResponse} from 'apisauce';
-import {getGeneralApiProblem} from '@services/api/api-problem';
+import {
+  GeneralApiProblem,
+  getGeneralApiProblem,
+} from '@services/api/api-problem';
 // import * as Types from './api.types';
 import {Api} from '@services/api/api';
+import {TransactionItemType} from '@modules/transactions/Type.transactions';
 
 /**
  * Manages all requests to the API.
@@ -16,7 +20,9 @@ export class TransactionsApi {
   /**
    * Gets a list of users.
    */
-  async getTransactions() {
+  async getTransactions(): Promise<
+    {kind: 'ok'; transactions: Array<TransactionItemType>} | GeneralApiProblem
+  > {
     // make the api call
     const response: ApiResponse<any> = await this.api.apisauce.get(
       '/frontend-test',
@@ -34,12 +40,13 @@ export class TransactionsApi {
     try {
       const rawTransactions = response.data;
       // const resultUsers: Types.User[] = rawUsers.map(convertUser);
-      console.log(response.data);
+      // console.log(response.data);
 
-      let transactions = [];
+      let transactions: Array<TransactionItemType> = [];
 
+      // convert response.data to array form
       for (var key in rawTransactions) {
-        console.log(rawTransactions[key]); // "User john is #234"
+        console.log(rawTransactions[key]);
         transactions.push(rawTransactions[key]);
       }
 

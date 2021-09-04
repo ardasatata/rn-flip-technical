@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,14 +28,33 @@ import SearchIcon from '@assets/icons/search.svg';
 import ChevronDown from '@assets/icons/chevron-down.svg';
 
 import Spacer from '@components/Spacer';
+import {useDebounce} from '@utils';
 
 export interface SearchBarProps {
-  filterValue: string;
   placeholder: string;
+  onPressFilter(): void;
+  filterLabel: string;
+  onSearchValueChange(str: string | number): void;
 }
 
-export const SearchBar = ({filterValue, placeholder}: SearchBarProps) => {
+export const SearchBar = ({
+  placeholder,
+  filterLabel,
+  onPressFilter,
+  onSearchValueChange,
+}: SearchBarProps) => {
   const theme = useTheme();
+
+  const [searchVal, setSearchval] = useState<string>('');
+  const debouncedSearchVal = useDebounce(searchVal, 500);
+
+  useEffect(() => {
+    onSearchValueChange(debouncedSearchVal);
+  }, [debouncedSearchVal]);
+
+  const onChangeText = useCallback(value => {
+    setSearchval(value);
+  }, []);
 
   return (
     <HStack style={[]}>
@@ -48,13 +67,13 @@ export const SearchBar = ({filterValue, placeholder}: SearchBarProps) => {
         <Spacer width={Spacing[8]} />
         <TextInput
           style={styles.input}
-          // onChangeText={onChangeText}
-          // value={text}
+          onChangeText={onChangeText}
+          value={searchVal}
           placeholder={placeholder}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressFilter}>
           <HStack>
-            <Text style={styles.filterText}>{filterValue.toUpperCase()}</Text>
+            <Text style={styles.filterText}>{filterLabel.toUpperCase()}</Text>
             <ChevronDown
               width={Spacing[20]}
               height={Spacing[20]}
@@ -68,5 +87,8 @@ export const SearchBar = ({filterValue, placeholder}: SearchBarProps) => {
 };
 
 SearchBar.defaultProps = {
-  filterValue: 'Urutkan',
+  filterLabel: 'Urutkan',
+  onSearchValueChange(str: string) {
+    return null;
+  },
 };
