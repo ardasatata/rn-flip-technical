@@ -2,16 +2,7 @@ import {createTheming} from '@callstack/react-theme-provider';
 import {StyleSheet} from 'react-native';
 import {ms} from 'react-native-size-matters';
 import Spacing from './Spacing';
-import {
-  BLACK,
-  GRAY200,
-  GRAY500,
-  ORANGE500,
-  PINK500,
-  PURPLE500,
-  RED500,
-  WHITE,
-} from './Color';
+import {BLACK, ORANGE500, PINK500} from './Color';
 
 export interface ITheme {
   fontFamily: {
@@ -50,19 +41,6 @@ export interface ITheme {
   };
   colors: {
     primaryColor: string;
-    primaryColorDisabled: string;
-    secondaryColor: string;
-    textColor: string;
-    labelColor: string;
-    borderColor: string;
-    placeholderColor: string;
-    errorColor: string;
-    dark: string;
-    light: string;
-    actionBackgroundColor: string;
-    successColor: string;
-    indicator: string;
-    fadedText: string;
   };
   screenInset: number;
   roundness: number;
@@ -122,19 +100,6 @@ const {ThemeProvider, withTheme, useTheme} = createTheming<ITheme>({
   },
   colors: {
     primaryColor: ORANGE500,
-    // primaryColorDisabled: WARM_PINK_DISABLED,
-    // secondaryColor: PURPLE500,
-    // textColor: SEMI_BLACK,
-    // labelColor: SEMI_BLACK,
-    // borderColor: GRAY500,
-    // placeholderColor: GRAY200,
-    // errorColor: RED500,
-    // dark: BLACK,
-    // light: WHITE,
-    // actionBackgroundColor: MILK_WHITE,
-    // successColor: FOREST_GREEN,
-    // indicator: PALE_PURPLE,
-    // fadedText: `${SEMI_BLACK}66`,
   },
   screenInset: Spacing[24],
   roundness: Spacing[24],

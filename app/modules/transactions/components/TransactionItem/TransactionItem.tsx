@@ -3,12 +3,13 @@ import {
   TransactionStatusType,
 } from '@modules/transactions/Type.transactions';
 import {Text, TouchableOpacity, View} from 'react-native';
-import {Colors, Roundness, Spacing} from '@styles';
+import {Spacing} from '@styles';
 import {formatter, toIsoFormat, toTitleCase} from '@utils';
 import {HStack, VStack} from '@components';
 import React from 'react';
 import styles from '@modules/transactions/components/TransactionItem/TransactionItem.style';
 import Spacer from '@components/Spacer';
+import BankConnection from '@modules/transactions/components/BankConnection/BankConnection';
 
 const TransactionItem = ({transaction, onPressItem}: TransactionItemProps) => {
   const LeftAccent = ({status}: {status: TransactionStatusType}) => {
@@ -22,10 +23,6 @@ const TransactionItem = ({transaction, onPressItem}: TransactionItemProps) => {
         }}
       />
     );
-  };
-
-  const BankConnection = ({from, to}: {from: string; to: string}) => {
-    return <Text style={styles.bankConnectionText}>{`${toTitleCase(from)} ➔ ${toTitleCase(to)}`}</Text>;
   };
 
   const StatusTag = ({label}: {label: TransactionStatusType}) => {

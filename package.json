@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.6",
+    "@react-native-clipboard/clipboard": "^1.8.4",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",

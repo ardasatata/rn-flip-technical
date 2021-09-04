@@ -1,118 +1,31 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  Button,
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {FlatList, RefreshControl, SafeAreaView} from 'react-native';
 
 import styles from './List.style';
 import {SearchBar, TransactionItem} from '@modules/transactions/components';
 import {
-  TransactionItemType,
-  TransactionStatusType,
+  DefaultFilter,
+  EXAMPLE_DATA,
+  FilterItemType,
+  ListScreenProps,
+  RADIO_BUTTON_FILTER,
+  SEARCH_PLACEHOLDER,
+  SearchKeys,
 } from '@modules/transactions/Type.transactions';
-import {HStack, VStack} from '@components';
+import {VStack} from '@components';
 import {Colors, Layout, Roundness, Spacing} from '@styles';
-import {properDate, searchFromArray, toIsoFormat, toTitleCase} from '@utils';
+import {searchFromArray} from '@utils';
 import {TransactionsApi} from '@modules/transactions/api/transactions-api';
 
 import Modal from 'react-native-modal';
+// @ts-ignore
 import RadioButtonRN from 'radio-buttons-react-native';
 
 import {Api} from '@services/api/api';
 import Spacer from '@components/Spacer';
 import {applyFilter} from '@modules/transactions/utils';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {NavigatorParamList} from '../../../../navigators/AppNavigator';
-import {RouteProp} from '@react-navigation/native';
 
-const EXAMPLE_DATA: Array<TransactionItemType> = [
-  {
-    id: 'FT95192',
-    amount: 4466982,
-    unique_code: 854,
-    status: 'SUCCESS',
-    sender_bank: 'bni',
-    account_number: '6563101417',
-    beneficiary_name: 'Miranda Bannister',
-    beneficiary_bank: 'bca',
-    remark: 'sample remark',
-    created_at: '2021-09-02 19:36:24',
-    completed_at: '2021-09-02 19:36:24',
-    fee: 0,
-  },
-  {
-    id: 'FT94967',
-    amount: 4466982,
-    unique_code: 854,
-    status: 'PENDING',
-    sender_bank: 'bni',
-    account_number: '6563101417',
-    beneficiary_name: 'Miranda Bannister',
-    beneficiary_bank: 'bca',
-    remark: 'sample remark',
-    created_at: '2021-08-30 15:38:23',
-    completed_at: '2021-09-02 20:37:35',
-    fee: 0,
-  },
-];
-
-const SEARCH_PLACEHOLDER = 'Cari nama,bank,atau nominal';
-
-export type FilterItemType = {
-  label: string;
-  value: FilterValueType;
-};
-
-export type FilterValueType =
-  | 'unsorted'
-  | 'ascending_name'
-  | 'descending_name'
-  | 'date_newest'
-  | 'date_oldest';
-
-const data: Array<FilterItemType> = [
-  {
-    label: 'URUTKAN',
-    value: 'unsorted',
-  },
-  {
-    label: 'Nama A-Z',
-    value: 'ascending_name',
-  },
-  {
-    label: 'Nama Z-A',
-    value: 'descending_name',
-  },
-  {
-    label: 'Tanggal Terbaru',
-    value: 'date_newest',
-  },
-  {
-    label: 'Tanggal Terlama',
-    value: 'date_oldest',
-  },
-];
-
-type Props = {
-  navigation: StackNavigationProp<NavigatorParamList, 'list'>;
-};
-
-export const List: React.FC<Props> = ({navigation}) => {
+export const List: React.FC<ListScreenProps> = ({navigation}) => {
   const [transactions, setTransactions] = useState<any>(EXAMPLE_DATA);
   const [transactionsResponses, setTransactionResponses] =
     useState<any>(EXAMPLE_DATA);
@@ -121,26 +34,19 @@ export const List: React.FC<Props> = ({navigation}) => {
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [activeFilter, setActiveFilter] = useState<FilterItemType>({
-    label: 'URUTKAN',
-    value: 'unsorted',
-  });
+  const [activeFilter, setActiveFilter] =
+    useState<FilterItemType>(DefaultFilter);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   const onSearchValueChange = useCallback(value => {
-    console.log('LIST');
-    console.log(value);
     setSearchValue(value);
-    console.log(value);
   }, []);
 
   const goToDetail = useCallback(transaction => {
     navigation.navigate('detail', {
-      itemId: 86,
-      otherParam: 'anything you want here',
       transaction,
     });
   }, []);
@@ -172,15 +78,11 @@ export const List: React.FC<Props> = ({navigation}) => {
   }, []);
 
   const onSearchFilterChanged = () => {
-    console.log(searchValue);
-    const searchResult = searchFromArray(transactionsResponses, searchValue, [
-      'beneficiary_name',
-      'sender_bank',
-      'beneficiary_bank',
-      'amount',
-    ]);
-    console.log('onSearchFilterChanged');
-    console.log(searchResult);
+    const searchResult = searchFromArray(
+      transactionsResponses,
+      searchValue,
+      SearchKeys,
+    );
     setTransactions(applyFilter(searchResult, activeFilter.value));
   };
 
@@ -196,6 +98,7 @@ export const List: React.FC<Props> = ({navigation}) => {
           placeholder={SEARCH_PLACEHOLDER}
           onPressFilter={toggleModal}
           onSearchValueChange={onSearchValueChange}
+          filterLabel={activeFilter.label}
         />
         <Spacer height={Spacing[8]} />
       </VStack>
@@ -221,7 +124,7 @@ export const List: React.FC<Props> = ({navigation}) => {
           horizontal={Spacing[8]}
           style={{backgroundColor: Colors.WHITE, borderRadius: Roundness.md}}>
           <RadioButtonRN
-            data={data}
+            data={RADIO_BUTTON_FILTER}
             selectedBtn={onFilterSelected}
             box={false}
             circleSize={Spacing[12]}
