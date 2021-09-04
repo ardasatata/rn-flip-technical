@@ -25,7 +25,7 @@ const TransactionItem = ({transaction, onPressItem}: TransactionItemProps) => {
   };
 
   const BankConnection = ({from, to}: {from: string; to: string}) => {
-    return <Text>{`${toTitleCase(from)} ➔ ${toTitleCase(to)}`}</Text>;
+    return <Text style={styles.bankConnectionText}>{`${toTitleCase(from)} ➔ ${toTitleCase(to)}`}</Text>;
   };
 
   const StatusTag = ({label}: {label: TransactionStatusType}) => {
@@ -52,15 +52,10 @@ const TransactionItem = ({transaction, onPressItem}: TransactionItemProps) => {
 
   return (
     <TouchableOpacity onPress={() => onPressItem(transaction)}>
-      <HStack
-        style={{
-          backgroundColor: 'white',
-          borderRadius: Roundness.sm,
-          overflow: 'hidden',
-          minHeight: Spacing[48],
-        }}>
+      <HStack style={styles.itemWrapper} right={Spacing[12]}>
         <LeftAccent status={transaction.status} />
-        <VStack>
+        <Spacer width={Spacing[12]} />
+        <VStack vertical={Spacing[12]}>
           <BankConnection
             from={transaction.sender_bank}
             to={transaction.beneficiary_bank}

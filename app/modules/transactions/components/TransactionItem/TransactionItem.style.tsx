@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
   tagTextSuccess: {
     color: Colors.WHITE,
   },
+
+  itemWrapper: {
+    backgroundColor: 'white',
+    borderRadius: Roundness.sm,
+    overflow: 'hidden',
+    minHeight: Spacing[48],
+  },
+  bankConnectionText: {
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

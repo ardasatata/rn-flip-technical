@@ -161,7 +161,6 @@ export const List: React.FC<Props> = ({navigation}) => {
     setRefreshing(true);
     const transactions_res = await transactionApi.getTransactions();
     if (transactions_res.kind === 'ok') {
-      // console.log(transactions_res.transactions);
       setTransactionResponses(transactions_res.transactions);
       setTransactions(transactionsResponses);
     }
@@ -192,13 +191,18 @@ export const List: React.FC<Props> = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <SearchBar
-        placeholder={SEARCH_PLACEHOLDER}
-        onPressFilter={toggleModal}
-        onSearchValueChange={onSearchValueChange}
-      />
+      <VStack top={Spacing[8]} horizontal={Spacing[12]}>
+        <SearchBar
+          placeholder={SEARCH_PLACEHOLDER}
+          onPressFilter={toggleModal}
+          onSearchValueChange={onSearchValueChange}
+        />
+        <Spacer height={Spacing[8]} />
+      </VStack>
       <FlatList
-        style={[Layout.heightFull]}
+        ItemSeparatorComponent={() => <Spacer height={Spacing[4]} />}
+        ListFooterComponent={() => <Spacer height={Spacing[64]} />}
+        style={[Layout.heightFull, styles.listContent]}
         data={transactions}
         renderItem={({item}) => (
           <TransactionItem transaction={item} onPressItem={goToDetail} />

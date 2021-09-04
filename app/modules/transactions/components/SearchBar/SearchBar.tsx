@@ -57,7 +57,7 @@ export const SearchBar = ({
   }, []);
 
   return (
-    <HStack style={[]}>
+    <HStack>
       <HStack style={styles.inputWrapper}>
         <SearchIcon
           width={Spacing[20]}
